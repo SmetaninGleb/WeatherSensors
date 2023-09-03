@@ -34,7 +34,7 @@ public class MeasurementService
         addMeasurement(measurementDTO);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = MeasurementException.class)
     public void addMeasurement(MeasurementDTO measurementDTO) throws MeasurementException
     {
         Measurement measurement = modelMapper.map(measurementDTO, Measurement.class);
@@ -47,7 +47,7 @@ public class MeasurementService
         addMeasurement(measurement);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = MeasurementException.class)
     public void addMeasurement(Measurement measurement) throws MeasurementException
     {
         measurementValidationService.checkMeasurementSensor(measurement);

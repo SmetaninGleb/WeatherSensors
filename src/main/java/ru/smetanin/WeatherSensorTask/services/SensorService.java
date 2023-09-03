@@ -35,7 +35,7 @@ public class SensorService
         return modelMapper.map(sensorDTO, Sensor.class);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = SensorException.class)
     public void registerSensor(SensorDTO sensorDTO, BindingResult bindingResult) throws SensorException,
             SensorBindingException
     {
@@ -44,7 +44,7 @@ public class SensorService
         sensorRepository.save(sensor);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = SensorException.class)
     public void registerSensor(Sensor sensor, BindingResult bindingResult) throws SensorBindingException,
             SensorException
     {
@@ -52,14 +52,14 @@ public class SensorService
         registerSensor(sensor);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = SensorException.class)
     public void registerSensor(SensorDTO sensorDTO) throws SensorException
     {
         Sensor sensor = modelMapper.map(sensorDTO, Sensor.class);
         registerSensor(sensor);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = SensorException.class)
     public void registerSensor(Sensor sensor) throws SensorException
     {
         sensorValidationService.checkSensorRegisterPossibility(sensor);
